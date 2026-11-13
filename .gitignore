@@ -1,0 +1,87 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+*.rsuser
+*.DotSettings.user
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# Publish output
+publish/
+publish-*/
+
+# Test Results
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage/
+
+# =============================================================================
+# Bibliothek-spezifisch (gemäß SPEC.md)
+# =============================================================================
+
+# Cache-Verzeichnis (normalisierte Dateien, werden beim Build neu generiert)
+.cache/
+
+# Build-Ergebnisse (generierte FiveM Resources)
+build/
+
+# =============================================================================
+# Sicherheit / Sensible Daten
+# =============================================================================
+*.env
+.env.*
+appsettings.local.json
+secrets.json
+
+# =============================================================================
+# Betriebssystem
+# =============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS (falls jemand auf Mac entwickelt, obwohl das Tool Windows-only ist)
+.DS_Store
+.AppleDouble
+.LSOverride

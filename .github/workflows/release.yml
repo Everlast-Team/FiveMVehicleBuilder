@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Generate version
+        id: version
+        run: |
+          if ("${{ github.ref }}" -like "refs/tags/v*") {
+            $version = "${{ github.ref_name }}"
+          } else {
+            $date = Get-Date -Format "yyyy.MM.dd"
+            $shortSha = "${{ github.sha }}".Substring(0, 7)
+            $version = "v$date-$shortSha"
+          }
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "Version: $version"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Test
+        run: dotnet test --configuration Release --verbosity normal
+
+      - name: Publish App (self-contained)
+        run: |
+          dotnet publish src/App/FiveMVehicleBuilder.App/FiveMVehicleBuilder.App.csproj `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            --output ./publish/app
+
+      - name: Publish CLI (self-contained)
+        run: |
+          dotnet publish src/Cli/FiveMVehicleBuilder.Cli/FiveMVehicleBuilder.Cli.csproj `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            --output ./publish/cli
+
+      - name: Prepare Release Files
+        run: |
+          # Rename executables with version
+          Copy-Item ./publish/app/FiveMVehicleBuilder.App.exe ./FiveMVehicleBuilder-${{ steps.version.outputs.VERSION }}.exe
+          Copy-Item ./publish/cli/FiveMVehicleBuilder.Cli.exe ./FiveMVehicleBuilder-CLI-${{ steps.version.outputs.VERSION }}.exe
+          # Create zip archives
+          Compress-Archive -Path ./publish/app/* -DestinationPath ./FiveMVehicleBuilder-${{ steps.version.outputs.VERSION }}.zip
+          Compress-Archive -Path ./publish/cli/* -DestinationPath ./FiveMVehicleBuilder-CLI-${{ steps.version.outputs.VERSION }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: Release ${{ steps.version.outputs.VERSION }}
+          files: |
+            FiveMVehicleBuilder-${{ steps.version.outputs.VERSION }}.exe
+            FiveMVehicleBuilder-${{ steps.version.outputs.VERSION }}.zip
+            FiveMVehicleBuilder-CLI-${{ steps.version.outputs.VERSION }}.exe
+            FiveMVehicleBuilder-CLI-${{ steps.version.outputs.VERSION }}.zip
+          generate_release_notes: true
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') }}

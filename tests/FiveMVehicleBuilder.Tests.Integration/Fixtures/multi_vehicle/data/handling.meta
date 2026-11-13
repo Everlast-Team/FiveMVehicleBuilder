@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CHandlingDataMgr>
+  <HandlingData>
+    <Item type="CHandlingData">
+      <handlingName>POLICE1</handlingName>
+      <fMass value="2000.000000" />
+      <fInitialDragCoeff value="0.340000" />
+      <fDriveBiasFront value="0.000000" />
+      <nInitialDriveGears value="6" />
+      <fInitialDriveForce value="0.350000" />
+      <fBrakeForce value="0.900000" />
+      <fSteeringLock value="37.000000" />
+      <fTractionCurveMax value="2.350000" />
+      <fSuspensionForce value="2.200000" />
+      <AIHandling>AVERAGE</AIHandling>
+    </Item>
+    <Item type="CHandlingData">
+      <handlingName>POLICE2</handlingName>
+      <fMass value="2200.000000" />
+      <fInitialDragCoeff value="0.340000" />
+      <fDriveBiasFront value="0.000000" />
+      <nInitialDriveGears value="6" />
+      <fInitialDriveForce value="0.320000" />
+      <fBrakeForce value="0.850000" />
+      <fSteeringLock value="35.000000" />
+      <fTractionCurveMax value="2.300000" />
+      <fSuspensionForce value="2.000000" />
+      <AIHandling>AVERAGE</AIHandling>
+    </Item>
+  </HandlingData>
+</CHandlingDataMgr>

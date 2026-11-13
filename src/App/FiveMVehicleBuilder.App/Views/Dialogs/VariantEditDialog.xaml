@@ -1,0 +1,114 @@
+<Window x:Class="FiveMVehicleBuilder.App.Views.Dialogs.VariantEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Variante bearbeiten"
+        Width="450" Height="480"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Varianten-Name (readonly) -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Variante"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <TextBox Text="{Binding VariantName, Mode=OneWay}"
+                     IsReadOnly="True"
+                     Background="{StaticResource SurfaceBrush}"/>
+        </StackPanel>
+
+        <!-- Siren Setting ID -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <TextBlock Text="Siren Setting ID"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding SirenSettingIdText, UpdateSourceTrigger=PropertyChanged}"
+                         Background="{StaticResource SurfaceBrush}"/>
+                <Button Grid.Column="1"
+                        Content="Generieren"
+                        Click="GenerateSirenId_Click"
+                        Visibility="{Binding CanGenerateSirenId, Converter={StaticResource BoolToVisibility}}"
+                        Margin="8,0,0,0"
+                        Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Organisations-Typ -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <TextBlock Text="Organisationstyp"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding OrgTypes}"
+                      SelectedItem="{Binding OrgType}"
+                      IsEditable="False"
+                      Foreground="{StaticResource ForegroundBrush}"
+                      Background="{StaticResource SurfaceHoverBrush}"/>
+        </StackPanel>
+
+        <!-- Organisations-Kategorie -->
+        <StackPanel Grid.Row="3" Margin="0,0,0,16">
+            <TextBlock Text="Kategorie"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding OrgCategories}"
+                      Text="{Binding OrgCategory, UpdateSourceTrigger=PropertyChanged}"
+                      IsEditable="True"
+                      Foreground="{StaticResource ForegroundBrush}"
+                      Background="{StaticResource SurfaceHoverBrush}">
+                <ComboBox.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="CaretBrush" Value="{StaticResource ForegroundBrush}"/>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Standard-Livery -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,16">
+            <TextBlock Text="Standard-Livery (-1 = keine)"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <TextBox Text="{Binding DefaultLiveryText, UpdateSourceTrigger=PropertyChanged}"
+                     Background="{StaticResource SurfaceBrush}"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="6"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Abbrechen"
+                    Click="Cancel_Click"
+                    Width="100"
+                    Margin="0,0,8,0"/>
+            <Button Content="Speichern"
+                    Click="Save_Click"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="100"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

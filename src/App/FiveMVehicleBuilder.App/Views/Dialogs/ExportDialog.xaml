@@ -1,0 +1,63 @@
+<Window x:Class="FiveMVehicleBuilder.App.Views.Dialogs.ExportDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Exportieren"
+        Width="400" Height="280"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Export-Format auswählen"
+                   Foreground="{StaticResource ForegroundBrush}"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,16"/>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <RadioButton Content="JSON - Allgemeines Format"
+                         IsChecked="{Binding IsJsonSelected}"
+                         Foreground="{StaticResource ForegroundBrush}"
+                         Margin="0,4"/>
+            <RadioButton Content="Lua - FiveM Resource"
+                         IsChecked="{Binding IsLuaSelected}"
+                         Foreground="{StaticResource ForegroundBrush}"
+                         Margin="0,4"/>
+            <RadioButton Content="SQL - Datenbank-Import"
+                         IsChecked="{Binding IsSqlSelected}"
+                         Foreground="{StaticResource ForegroundBrush}"
+                         Margin="0,4"/>
+            <RadioButton Content="TypeScript - Dealership (Zivil-Fahrzeuge)"
+                         IsChecked="{Binding IsDealershipTsSelected}"
+                         Foreground="{StaticResource ForegroundBrush}"
+                         Margin="0,4"/>
+            <RadioButton Content="TypeScript - Organisation (Dienstfahrzeuge)"
+                         IsChecked="{Binding IsOrganisationTsSelected}"
+                         Foreground="{StaticResource ForegroundBrush}"
+                         Margin="0,4"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Abbrechen"
+                    Click="Cancel_Click"
+                    Width="100"
+                    Margin="0,0,8,0"/>
+            <Button Content="Exportieren"
+                    Click="Export_Click"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="100"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

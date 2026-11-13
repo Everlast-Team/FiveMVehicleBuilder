@@ -1,0 +1,117 @@
+<UserControl x:Class="FiveMVehicleBuilder.App.Views.OnboardingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:FiveMVehicleBuilder.App.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="600"
+             Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Border Background="{StaticResource SurfaceBrush}"
+                CornerRadius="8"
+                Padding="40"
+                MaxWidth="500"
+                MaxHeight="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0"
+                           Text="FiveM Vehicle Builder"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource ForegroundBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock Grid.Row="1"
+                           Text="Bibliothek einrichten"
+                           FontSize="14"
+                           Foreground="{StaticResource ForegroundDimBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,24"/>
+
+                <!-- Pfad-Auswahl -->
+                <Grid Grid.Row="2" Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             Text="{Binding LibraryPath, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="13"
+                             IsReadOnly="True"/>
+
+                    <Button Grid.Column="1"
+                            Content="Durchsuchen..."
+                            Command="{Binding SelectFolderCommand}"
+                            Margin="8,0,0,0"
+                            Style="{StaticResource PrimaryButton}"/>
+                </Grid>
+
+                <!-- Optionen -->
+                <StackPanel Grid.Row="3"
+                            Margin="0,0,0,16"
+                            Visibility="{Binding IsNewLibrary, Converter={StaticResource BoolToVisibility}}">
+                    <CheckBox Content="Git-Repository initialisieren"
+                              IsChecked="{Binding InitGit}"
+                              Margin="0,0,0,8"/>
+                </StackPanel>
+
+                <!-- Status -->
+                <TextBlock Grid.Row="4"
+                           Text="{Binding StatusMessage}"
+                           Foreground="{Binding IsSuccess, Converter={StaticResource BoolToColor}}"
+                           FontSize="13"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,16"
+                           Visibility="{Binding StatusMessage, Converter={StaticResource NullToVisibility}}"/>
+
+                <!-- Buttons -->
+                <StackPanel Grid.Row="6"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+
+                    <Button Content="Neue Bibliothek erstellen"
+                            Command="{Binding CreateLibraryCommand}"
+                            Padding="20,10"
+                            Margin="0,0,8,0"
+                            Style="{StaticResource PrimaryButton}"
+                            Visibility="{Binding IsNewLibrary, Converter={StaticResource BoolToVisibility}}"/>
+
+                    <Button Content="Bibliothek öffnen"
+                            Command="{Binding OpenLibraryCommand}"
+                            Padding="20,10"
+                            Style="{StaticResource PrimaryButton}"
+                            Visibility="{Binding IsNewLibrary, Converter={StaticResource InverseBoolToVisibility}}"/>
+                </StackPanel>
+
+                <!-- Loading Overlay -->
+                <Border Grid.Row="0" Grid.RowSpan="7"
+                        Background="#cc1e1e1e"
+                        Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <ProgressBar IsIndeterminate="True" Width="200" Height="4"/>
+                        <TextBlock Text="{Binding BusyMessage}"
+                                   Foreground="{StaticResource ForegroundDimBrush}"
+                                   Margin="0,16,0,0"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,196 @@
+<Window x:Class="FiveMVehicleBuilder.App.Views.Dialogs.RecordEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Record bearbeiten"
+        Width="500" Height="550"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Record ID -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Record ID"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding RecordId}"
+                         IsReadOnly="True"
+                         Background="{StaticResource SurfaceBrush}"/>
+                <Button Grid.Column="1"
+                        Content="Umbenennen"
+                        Click="Rename_Click"
+                        Margin="8,0,0,0"
+                        Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Original Name (readonly) -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <TextBlock Text="Original Name"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <TextBox Text="{Binding OriginalName}"
+                     IsReadOnly="True"
+                     Background="{StaticResource SurfaceBrush}"/>
+        </StackPanel>
+
+        <!-- Kategorie -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <TextBlock Text="Kategorie"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding Category}"
+                      IsEditable="True"
+                      Foreground="{StaticResource ForegroundBrush}"
+                      Background="{StaticResource SurfaceHoverBrush}">
+                <ComboBox.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="CaretBrush" Value="{StaticResource ForegroundBrush}"/>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Fahrzeugklasse -->
+        <StackPanel Grid.Row="3" Margin="0,0,0,16">
+            <TextBlock Text="Fahrzeugklasse"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding VehicleClasses}"
+                      SelectedIndex="{Binding VehicleClassIndex}"
+                      Foreground="{StaticResource ForegroundBrush}"
+                      Background="{StaticResource SurfaceHoverBrush}"/>
+        </StackPanel>
+
+        <!-- Preis -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,16">
+            <TextBlock Text="Preis (optional)"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,4"/>
+            <TextBox Text="{Binding PriceText, UpdateSourceTrigger=PropertyChanged}"
+                     Background="{StaticResource SurfaceBrush}"/>
+        </StackPanel>
+
+        <!-- Varianten Header -->
+        <Grid Grid.Row="5" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Varianten"
+                       Foreground="{StaticResource ForegroundDimBrush}"
+                       FontSize="12"
+                       VerticalAlignment="Center"/>
+
+            <Button Grid.Column="1"
+                    Content="+ Variante"
+                    Click="AddVariant_Click"
+                    Style="{StaticResource PrimaryButton}"
+                    Padding="12,4"/>
+        </Grid>
+
+        <!-- Varianten Liste -->
+        <ListBox Grid.Row="6"
+                 ItemsSource="{Binding Variants}"
+                 SelectedItem="{Binding SelectedVariant}"
+                 Background="{StaticResource SurfaceBrush}"
+                 BorderBrush="{StaticResource BorderBrush}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="8"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SurfaceHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Name}"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold"/>
+
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   Margin="8,0"
+                                   Foreground="{StaticResource ForegroundDimBrush}">
+                            <Run Text="Siren: "/>
+                            <Run Text="{Binding SirenSettingId, TargetNullValue='-'}"/>
+                        </TextBlock>
+
+                        <Button Grid.Column="2"
+                                Content="Bearbeiten"
+                                Click="EditVariant_Click"
+                                Tag="{Binding}"
+                                Padding="8,2"
+                                FontSize="10"
+                                Margin="0,0,4,0"/>
+
+                        <Button Grid.Column="3"
+                                Content="X"
+                                Click="RemoveVariant_Click"
+                                Tag="{Binding Name}"
+                                Style="{StaticResource DangerButton}"
+                                Padding="8,2"
+                                FontSize="10"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="7"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,16,0,0">
+            <Button Content="Abbrechen"
+                    Click="Cancel_Click"
+                    Width="100"
+                    Margin="0,0,8,0"/>
+            <Button Content="Speichern"
+                    Click="Save_Click"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

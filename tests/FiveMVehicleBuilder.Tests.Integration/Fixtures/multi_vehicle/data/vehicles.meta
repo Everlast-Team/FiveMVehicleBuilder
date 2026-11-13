@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CVehicleModelInfo__InitDataList>
+  <residentTxd>vehshare</residentTxd>
+  <residentAnims />
+  <InitDatas>
+    <Item>
+      <modelName>police1</modelName>
+      <txdName>police1</txdName>
+      <handlingId>POLICE1</handlingId>
+      <gameName>police1</gameName>
+      <vehicleMakeName />
+      <audioNameHash>POLICE</audioNameHash>
+      <layout>LAYOUT_STANDARD</layout>
+      <type>VEHICLE_TYPE_CAR</type>
+      <vehicleClass>VC_EMERGENCY</vehicleClass>
+    </Item>
+    <Item>
+      <modelName>police2</modelName>
+      <txdName>police2</txdName>
+      <handlingId>POLICE2</handlingId>
+      <gameName>police2</gameName>
+      <vehicleMakeName />
+      <audioNameHash>POLICE</audioNameHash>
+      <layout>LAYOUT_STANDARD</layout>
+      <type>VEHICLE_TYPE_CAR</type>
+      <vehicleClass>VC_EMERGENCY</vehicleClass>
+    </Item>
+  </InitDatas>
+  <txdRelationships>
+    <Item>
+      <parent>police1</parent>
+      <child>police1</child>
+    </Item>
+    <Item>
+      <parent>police2</parent>
+      <child>police2</child>
+    </Item>
+  </txdRelationships>
+</CVehicleModelInfo__InitDataList>
