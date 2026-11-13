@@ -2,6 +2,8 @@
 
 A comprehensive tool for managing, organizing, and building vehicle resources for FiveM servers. Import vehicles from various sources (folders, RPF archives), organize them into packs, and export ready-to-use FiveM resources.
 
+> **Note**: The user interface is currently only available in German.
+
 ## Features
 
 - **Import Vehicles**: Import from folders or directly from RPF archives (DLC.rpf, vehicles.rpf)
@@ -23,12 +25,12 @@ A comprehensive tool for managing, organizing, and building vehicle resources fo
 
 ### Installation
 
-Download the latest release from the [Releases](https://github.com/YOUR_USERNAME/FiveMVehicleBuilder/releases) page.
+Download the latest release from the [Releases](https://github.com/Everlast-Team/FiveMVehicleBuilder/releases) page.
 
 Or build from source:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/FiveMVehicleBuilder.git
+git clone https://github.com/Everlast-Team/FiveMVehicleBuilder.git
 cd FiveMVehicleBuilder
 dotnet build
 ```
@@ -134,13 +136,13 @@ FiveM Vehicle Builder supports custom providers for:
 - **Organization Types**: Define custom org types (police, medical, etc.)
 - **Export Formats**: Add custom export format generators
 
-Create your own provider by implementing `IOrganizationTypeProvider` or `IExportFormatProvider` interfaces. See the [Custom Providers Guide](docs/custom-providers.md) for details.
+Create your own provider by implementing `IOrganizationTypeProvider` or `IExportFormatProvider` interfaces.
 
 ## Building from Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/FiveMVehicleBuilder.git
+git clone https://github.com/Everlast-Team/FiveMVehicleBuilder.git
 cd FiveMVehicleBuilder
 
 # Build
@@ -192,12 +194,6 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This project was initially developed with the assistance of [Claude](https://claude.ai), Anthropic's AI assistant. The entire codebase, including architecture decisions, implementation, and documentation, was created through collaborative AI-assisted development.
-
-We welcome contributions from the community to extend and improve this tool. Whether you want to fix bugs, add features, or create custom providers for your server - your contributions are appreciated!
 
 ---
 
