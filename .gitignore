@@ -54,17 +54,17 @@ coverage*.xml
 coverage/
 
 # =============================================================================
-# Bibliothek-spezifisch (gemäß SPEC.md)
+# Library-specific
 # =============================================================================
 
-# Cache-Verzeichnis (normalisierte Dateien, werden beim Build neu generiert)
+# Cache directory (normalized files, regenerated during build)
 .cache/
 
-# Build-Ergebnisse (generierte FiveM Resources)
+# Build results (generated FiveM resources)
 build/
 
 # =============================================================================
-# Sicherheit / Sensible Daten
+# Security / Sensitive Data
 # =============================================================================
 *.env
 .env.*
@@ -72,7 +72,7 @@ appsettings.local.json
 secrets.json
 
 # =============================================================================
-# Betriebssystem
+# Operating System
 # =============================================================================
 
 # Windows
@@ -81,7 +81,7 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# macOS (falls jemand auf Mac entwickelt, obwohl das Tool Windows-only ist)
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
